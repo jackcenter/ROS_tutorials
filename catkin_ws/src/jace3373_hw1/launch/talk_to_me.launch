@@ -1,0 +1,11 @@
+<launch>
+
+  <!-- the listener node -->
+    <node name="listener" type="listener.py" pkg="jace3373_hw1" output="screen">
+    </node>
+
+  <!-- the talker node -->
+    <node name="talker" type="talker.py" pkg="jace3373_hw1" output="screen">
+    </node>
+
+</launch>

@@ -39,8 +39,21 @@
 import rospy
 from std_msgs.msg import Time
 
+
 def callback(data):
-    rospy.loginfo(rospy.get_caller_id() + "It took this long %s", rospy.get_rostime().to_sec() - data.data.to_sec())
+    global counter
+    counter += 1
+    time_elapsed = rospy.get_rostime().to_sec() - data.data.to_sec()
+
+    if counter <= 300:
+        file = open("/home/jackcenter/Desktop/pub_sub_times.txt", "a")
+        file.write(str(time_elapsed) + "\n")
+        file.close()
+    elif counter == 301:
+        rospy.loginfo("300 messages reached!!!")
+
+    rospy.loginfo(rospy.get_caller_id() + " It took %s seconds", time_elapsed)
+    
 
 def listener():
 
@@ -49,6 +62,9 @@ def listener():
     # anonymous=True flag means that rospy will choose a unique
     # name for our 'listener' node so that multiple listeners can
     # run simultaneously.
+    global counter 
+    counter = 0
+
     rospy.init_node('listener', anonymous=True)
 
     rospy.Subscriber('chatter', Time, callback)
