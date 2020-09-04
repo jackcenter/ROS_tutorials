@@ -1,0 +1,11 @@
+<launch>
+
+  <!-- the server node -->
+    <node name="server" type="say_something_server.py" pkg="jace3373_hw1" output="screen">
+    </node>
+
+  <!-- the client node -->
+    <node name="client" type="say_something_client.py" pkg="jace3373_hw1" output="screen">
+    </node>
+
+</launch>
